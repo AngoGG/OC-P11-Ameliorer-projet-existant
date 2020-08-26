@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="Anthony Gomes" />
+    <title>Pur Beurre
+        {% block title %}
+        {% endblock %}
+    </title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static "img/logo_pur_beurre-favicon.png" %}">
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- Google fonts-->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet" type="text/css">
+    <!-- Third party plugin CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static "css/styles.css" %}" rel="stylesheet">
+    <link href="{% static "css/custom-styles.css" %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="{% url "app:home" %}">
+                <img src="{% static "img/logo_pur_beurre.png" %}" alt="My image" width="30px" height="auto">
+                Pur Beurre
+            </a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                    {% comment %} <ul class="navbar-nav ml-auto my-auto lg-auto"> {% endcomment %}
+                        <li class="nav-item">
+                            <form action="{% url "product:index" %}" method="get">
+                                {% csrf_token %}
+                                <input type="text" name="search" class="input-sm nav-form-control"
+                                    placeholder="Rechercher" required>
+                            </form>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{% url "user:profile" %}">
+                                <div class="ml-2">
+                                    <i class="fas fa-user" style="font-size:36px;"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{% url "substitute:favorites" %}">
+                                <div class="ml-2">
+                                    <i class="fas fa-carrot" style="font-size:36px;"></i>
+                                </div>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{% url "user:register" %}">
+                                <div class="ml-2">
+                                    <i class="fas fa-user-plus" style="font-size:36px;"></i>
+                                </div>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{% url "user:login" %}">
+                                <div class="ml-2">
+                                    <i class="fas fa-sign-in-alt" style="font-size:36px;"></i>
+                                </div>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{% url "user:logout" %}">
+                                <div class="ml-2">
+                                    <i class="fas fa-sign-out-alt" style="font-size:36px;"></i>
+                                </div>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- Footer-->
+    <footer class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 ml-auto text-center mb-5 mb-lg-0">
+                    <a href="{% url "app:legal_notice" %}">Mentions Légales</a>
+                </div>
+                <div class="col-lg-2 mr-auto text-center">
+                    <a href="{% url "app:home" %}#contact">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{% static "js/scripts.js" %}"></script>
+    <!-- personal JS -->
+    <script src="{% static "js/add-favorite.js" %}"></script>
+    <script src="{% static "js/autocomplete.js" %}"></script>
+    <script src="{% static "js/image-modal.js" %}"></script>
+
+</body>
+
+</html>

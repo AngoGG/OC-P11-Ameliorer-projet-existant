@@ -1,0 +1,36 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %}
+- Mentions Légales {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<section class="page-section bg-dark text-white h-25" style="background-image: url('{% static 'img/background.jpg' %}'); background-size: 100% 100%">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-auto">
+                <h2 class="title text-white font-weight-bold text-center">
+                    <p>Mentions Légales</p>
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-auto">
+                <ul>
+                <li><b>Coordonées de l'hébergeur: </b><a target="_blank" href="https://www.heroku.com/home">Heroku</a></li>
+                <li><b>Template Bootstrap: </b><a target="_blank" href="https://startbootstrap.com/themes/creative/">Creative</a></li>
+                <li><b>Icones Font Awesome: </b><a target="_blank" href="https://fontawesome.com/">Font Awesome</a></li>
+                <li><b>Photo: </b><a target="_blank" href="https://unsplash.com/@olenka_kotyk">Olenka Kotyk</a></li>
+                <li><b>Images de Remy et Colette: </b><a target="_blank" href="https://company-82435.frontify.com/d/6Yy9WFJdtp8j/pur-beurre-style-guide#/langage-visuel/photographies">Pur Beurre - Charte Graphique</a></li>
+                <li><b>Données Alimentaires: </b><a target="_blank" href="https://fr.openfoodfacts.org/">Open Food Facts</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

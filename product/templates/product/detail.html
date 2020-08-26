@@ -1,0 +1,76 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="page-section h-25 first_section bg-mussels text-white" style="background-image: url('{{ product.image }}');">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-auto">
+                <h1 class="title section_title text-center">{{ product.name }}</h1>
+            </div>
+        </div>
+    </div>
+  </section>
+<section class="page-section bg-biscuit h-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="mt-5">
+                    <p> <img src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.nutriscore_grade }}.png"><p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+                <div class="mt-5">
+                    <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td colspan="2"><h5 class="text-white mt-0">Valeurs Nutrionnelles pour 100g</h5></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><p class="text-white-50 mb-4">Énergie (kcal)</p></td>
+                            <td><p class="text-white-50 mb-4">{{ product.kcal_100g }} kcal</p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="text-white-50 mb-4">Glucides</p></td>
+                            <td><p class="text-white-50 mb-4">{{ product.carbohydrates_100g }} g</p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="text-white-50 mb-4">Dont sucre</p></td>
+                            <td><p class="text-white-50 mb-4">{{ product.sugars_100g }} g</p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="text-white-50 mb-4">Matières Grasses</p></td>
+                            <td><p class="text-white-50 mb-4">{{ product.fat_100g }} g</p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="text-white-50 mb-4">Protéines</p></td>
+                            <td><p class="text-white-50 mb-4">{{ product.proteins_100g }} g</p></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><p class="text-white-50 mb-4">Sel</p></td>
+                            <td><p class="text-white-50 mb-4">{{ product.salt_100g }} g</p></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 text-center">
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+            <p><a target="_blank" href="{{ product.url }}"><button type="submit" class="btn btn-primary bg-chocolate btn-block">Voir la Fiche du Produit sur OpenfoodFacts</button></a></p>
+            </div>
+            <div class="col-lg-4 col-md-6 text-center">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

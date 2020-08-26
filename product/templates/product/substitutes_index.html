@@ -1,0 +1,88 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<section class="page-section h-25 first_section bg-mussels text-white" style="background-image: url('{{ product_image }}');">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class=" title col-lg-auto">
+                <h1 class=" section_title text-center mt-0">{{ product_name }}</h1>
+                <h2 class="text-center mt-0">Vous pouvez remplacer ce produit par l'un des suivants:</h2> 
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-section bg-biscuit h-auto">
+    <div class="container">
+        <div class="row text-center">
+            {% for substitute in substitutes%}
+            <div class="custom-card col-12 col-md-4 bg-biscuit">
+                <div class="product card-body">
+                    <img class="nutriscore" src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ substitute.nutriscore_grade }}.png">
+                    <a class="image-popup-no-margins" href="{{ substitute.image }}">
+                        <img id="productImage" class="product-img" src=" {{ substitute.image }}" />
+                    </a>
+                </div>
+                <h5 class="card-title text-white">{{ substitute.name }}</h5>
+                {% if user.is_authenticated %}
+                    <form class="save" id="save_favorite" method="POST" action="{% url 'substitute:save' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="product" id="product" value="{{ product_code}}"/>
+                        <input type="hidden" name="substitute" id="substitute" value="{{ substitute.code }}"/>
+                        {% if substitute.code in favorites %}
+                        <button class="btn btn-success active save_button btn-block" disabled>
+                          <i class="fas fa-check"></i> Sauvegardé
+                        </button>
+                        {% else %}
+                        <button type="submit" class="btn bg-chocolate btn-block text-white">
+                          <i class="fas fa-save"></i> Sauvegarder
+                        </button>
+                        {% endif %}
+                    </form>
+                    {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="successModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </p>
+                <p class="mt-0 text-center">Le produit a bien été enregistré en favori</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="modal fade" id="failModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </p>
+                <p class="mt-0 text-center">Une erreur est survenue lors de la sauvegarde</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
+

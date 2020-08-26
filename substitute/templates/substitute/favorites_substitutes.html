@@ -1,0 +1,34 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="page-section h-25 first_section bg-mussels text-white" style="background-image: url('{% static 'img/background.jpg' %}'); background-size: 100%">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class=" title col-lg-auto">
+                <h1 class=" section_title text-center mt-0">Produits favoris</h1>
+            </div>
+        </div>
+    </div>
+  </section>
+  
+<section class="page-section bg-biscuit h-auto">
+    <div class="container">
+        <div class="row text-center">
+            {% for product in products%}
+            <div class="custom-card col-12 col-md-4 bg-biscuit">
+                <div class="product card-body">
+                    <img class="nutriscore" src="https://static.openfoodfacts.org/images/misc/nutriscore-{{ product.substitute.nutriscore_grade }}.png">
+                    <a class="image-popup-no-margins" href="{{ product.substitute.image }}">
+                        <img id="productImage" class="product-img" src=" {{ product.substitute.image }}" />
+                    </a>
+                </div>
+                <h5 class="card-title text-white">{{ product.substitute.name  }}</h5>
+                <a href="{% url "product:detail" product.substitute.code %}" class="btn bg-chocolate btn-block text-white" role="button"><i class="fas fa-search"></i>Voir détail du produit</a>
+            </div>
+            {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+

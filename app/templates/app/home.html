@@ -1,0 +1,101 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %}
+- Accueil {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<!-- Masthead-->
+<section class="page-section bg-top-section" style="background-image: url('{% static 'img/background.jpg' %}'); background-size: 100%">
+    <div class=" container">
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="title col-lg-10 align-self-end">
+                <h1 class="text-white font-weight-bold">Du gras, oui, mais de qualité!</h1>
+                <h2 class="text-white font-weight-bold">Trouvez un produit de substitution pour ceux que vous consommez
+                    tous les jours.</h1> 
+            </div>
+            <div class="col-lg-8 align-self-baseline text-black autocomplete">
+                <hr class="divider my-4" />
+                <form autocomplete="off" action="{% url "product:index" %}" method="get">
+                    <div class="input-group">
+                        {% csrf_token %}
+                        <input id="search" type="text" name="search" maxlength="50" class="input-sm form-control"
+                            placeholder="Produit" required>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary  bg-chocolate btn-sm">Chercher</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About-->
+<section class="page-section bg-biscuit" id="about">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <h2 class="text-white mt-0">Colette et Remy</h2>
+                <hr class="divider light my-4" />
+                <p class="text-white-50 mb-4">Pur Beurre est l'initiative de deux amoureux de la gastronomie française,
+                    Colette Tatou et Rémy, que vous avez déjà certainement rencontrés dans notre excellent restaurant
+                    Ratatouille.
+                </p>
+                <p class="text-white-50 mb-4">
+                    <b>Colette Tatou :</b>"Nous aimons tous manger, surtout en France !
+                    Personnellement, une baguette fraîche, du bon fromage de chèvre et un bon vin rouge me suffisent
+                    amplement. Comme tout le monde, je fais mes courses au supermarché.
+                    Mais petit à petit je me suis rendue compte, surtout lorsque nous avons ouvert le restaurant,
+                    que je pouvais remplacer les produits aseptisés que j'avais l'habitude d'acheter par de bons
+                    produits du terroir Et souvent pour le même prix !"
+                </p>
+                <p class="text-white-50 mb-4">
+                    <b>Remy :</b> "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me
+                    balader, surtout dans les caves et les cuisines.
+                    Je connaissais par coeur le contenu des boutiques bio (dont je raffole) ainsi que les ingrédients de
+                    tous les aliments vendus.
+                    Lorsque Colette m'a demandé si elle pouvait remplacer son Nutella matinal par un aliment plus sain,
+                    je savais tout de suite où le trouver.
+                    L'idée de Pur Beurre était née !"
+                </p>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="row justify-content-around">
+            <div class="col-lg-4">
+                <img class="rounded mx-auto d-block"  src="{% static "img/colette-9.jpg" %}" alt="Colette" height="300px" width="300px">
+                <h2 class="text-white mt-0 text-center">Colette</h2>
+            </div>
+            <div class="col-lg-4">
+                <img class="rounded mx-auto d-block"  src="{% static "img/remy-4.jpg" %}" alt="Remy" height="300px" width="300px">
+                <h2 class="text-white mt-0 text-center">Remy</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact-->
+<section class="page-section bg-mussels" id="contact">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="text-white mt-0 text-center">Contactez-nous!</h2>
+                <hr class="divider my-4" />
+                <p class="text-white mb-5">Le gras c'est la vie</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+                <i class="fas fa-phone fa-3x mb-3 text-white"></i>
+                <div><p class="text-white mb-5">+1 (555) 123-4567</p></div>
+            </div>
+            <div class="col-lg-4 mr-auto text-center">
+                <i class="fas fa-envelope fa-3x mb-3 text-white"></i>
+                <a class="d-block" href="mailto:contact@purbeurre.com">contact@purbeurre.com</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %}
+- Mon Compte {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<section class="page-section h-25 first_section bg-mussels text-white" style="background-image: url('{% static 'img/background.jpg' %}'); background-size: 100%" >
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class=" title col-lg-auto">
+                <h1 class="section_title text-center mt-0">Ahoy, {{ user.first_name }} </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="page-section bg-biscuit h-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-lg-8 text text-center">
+                <h2 class="text-white text-center">
+                    <p>
+                        {% if user.is_authenticated %}
+                        {{ user.email }}
+                        {% endif %}
+                    </p>
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
