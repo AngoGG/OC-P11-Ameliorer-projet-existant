@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from typing import List
+from typing import Dict, List
 from product.models import Category, Product
 from openfoodfacts.api import Api, DataCleaner
 
@@ -16,17 +16,23 @@ class FillDatabase:
     def run(self) -> None:
         Product.objects.all().delete()
         Category.objects.all().delete()
-        for category in self.categories:
-            result = self.api.get_data(category)
-            category = Category.objects.create(name=category)
+        for category_name in self.categories:
+            result = self.api.get_data(category_name)
+            category = Category.objects.create(name=category_name)
             for product in self.clean_datas.get_product(result):
                 self.insert_database(product, category)
                 
 
-    def insert_database(self, product, category) -> None:
-        Product.objects.create(**product)
-        category.products.add(product)
-
+    def insert_database(self, product_data: Dict, category: Category) -> None:
+        '''Method in charge of the database insertion for a product and its relationned category
+        
+        Args:
+            product_data (Dict): A dictionnary containing all datas to be inserted in database for a product.
+            category (Category): The Products category objects, used to create the relation in database.
+        '''
+          
+        product_object = Product.objects.create(**product_data)
+        category.products.add(product_data['code'])
 
 class Command(BaseCommand):
     help: str = "Lance la récupération des données de l'API OpenFoodFacts pour remplir la base de données PurBeurre"

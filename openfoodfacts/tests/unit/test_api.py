@@ -49,20 +49,21 @@ class TestApi:
     @pytest.mark.django_db(transaction=True)
     def test_insert_database(self):
         """ Method testing the insertion of a product into a database """
-        results = Config.DATABASE_EXPECTED
-        fill_database: FillDatabase = FillDatabase("Boissons")
-        fill_database.insert_database(results, "Boissons")
+        expected_results = Config.DATABASE_EXPECTED
+        category_name = "Boissons"
+        category_object = Category.objects.create(name=category_name)
+
+        fill_database: FillDatabase = FillDatabase(category_name)
+        fill_database.insert_database(expected_results, category_object)
         assert Product.objects.count() == 1
 
         product_data = Product.objects.first()
-        for attr_key, attr_val in results.items():
-            assert results[attr_key] == getattr(product_data, attr_key)
-
-        category = Category.objects.create(name="Boissons")
+        for attr_key, attr_val in expected_results.items():
+            assert expected_results[attr_key] == getattr(product_data, attr_key)
 
         assert Category.objects.count() == 1
-        assert Category.objects.first().name == "Boissons"
-        assert len(category.products.all()) == 1
+        assert Category.objects.first().name == category_name
+        assert Product.objects.first().category_set.first().name  == category_name
 
     def test_get_data(self, monkeypatch: MonkeyPatch) -> None:
         """ Method testing data recovery via the OpenFoodFacts API """
