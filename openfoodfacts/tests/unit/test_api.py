@@ -17,13 +17,16 @@ from product.models import Category, Product
 from tests.conftest import Config
 
 
+data_cleaner: DataCleaner = DataCleaner()
+
+
 class TestApi:
     """Api Test Class.
     """
 
     def test__product_is_valid(self) -> None:
         """ Method testing the generation of a product for database insertion """
-        data_cleaner: DataCleaner = DataCleaner()
+
         assert data_cleaner._product_is_valid(Config.VALID_PRODUCT_DATA) is True
         assert data_cleaner._product_is_valid(Config.PRODUCT_DATA_EMPTY_FIELD) is False
         assert (
@@ -32,7 +35,6 @@ class TestApi:
 
     def test__nutrients_are_valid(self) -> None:
         """ Method testing the generation of a product for database insertion """
-        data_cleaner: DataCleaner = DataCleaner()
         assert data_cleaner._nutrients_are_valid(Config.VALID_NUTRIMENTS_DATA) is True
         assert (
             data_cleaner._nutrients_are_valid(Config.NUTRIMENTS_DATA_MISSING_FIELD)
@@ -42,7 +44,6 @@ class TestApi:
     def test_get_product(self) -> None:
         """ Method testing the generation of a product for database insertion """
         results = Config.PRODUCT_RESULTS
-        data_cleaner: DataCleaner = DataCleaner()
         for product in data_cleaner.get_product(Config.OPENFOODFACTS_DATA):
             assert product == results
 
@@ -53,7 +54,7 @@ class TestApi:
         category_name = "Boissons"
         category_object = Category.objects.create(name=category_name)
 
-        fill_database: FillDatabase = FillDatabase(category_name)
+        fill_database: FillDatabase = FillDatabase(category_name, False)
         fill_database.insert_database(expected_results, category_object)
         assert Product.objects.count() == 1
 
@@ -63,7 +64,7 @@ class TestApi:
 
         assert Category.objects.count() == 1
         assert Category.objects.first().name == category_name
-        assert Product.objects.first().category_set.first().name  == category_name
+        assert Product.objects.first().category_set.first().name == category_name
 
     def test_get_data(self, monkeypatch: MonkeyPatch) -> None:
         """ Method testing data recovery via the OpenFoodFacts API """
