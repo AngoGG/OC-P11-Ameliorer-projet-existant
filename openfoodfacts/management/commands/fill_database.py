@@ -14,25 +14,29 @@ class FillDatabase:
         self.categories: List[str] = categories
 
     def run(self) -> None:
-        Product.objects.all().delete()
-        Category.objects.all().delete()
+        # Product.objects.all().delete()
+        # Category.objects.all().delete()
         for category_name in self.categories:
             result = self.api.get_data(category_name)
-            category = Category.objects.create(name=category_name)
             for product in self.clean_datas.get_product(result):
-                self.insert_database(product, category)
-                
+                self.insert_database(product, category_name)
 
-    def insert_database(self, product_data: Dict, category: Category) -> None:
-        '''Method in charge of the database insertion for a product and its relationned category
+    def insert_database(self, product_data: Dict, category_name: str) -> None:
+        """Method in charge of the database insertion for a product and its relationned category
         
         Args:
             product_data (Dict): A dictionnary containing all datas to be inserted in database for a product.
             category (Category): The Products category objects, used to create the relation in database.
-        '''
-          
-        product_object = Product.objects.create(**product_data)
-        category.products.add(product_data['code'])
+        """
+
+        product_object, product_created = Product.objects.get_or_create(**product_data)
+        category_object, category_created = Category.objects.get_or_create(
+            name=category_name
+        )
+
+        category_object.products.add(product_object)
+        category_object.save()
+
 
 class Command(BaseCommand):
     help: str = "Lance la récupération des données de l'API OpenFoodFacts pour remplir la base de données PurBeurre"
