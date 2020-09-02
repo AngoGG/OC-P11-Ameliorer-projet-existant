@@ -13,20 +13,26 @@ Including another URLconfî
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.urls import path
+from django.conf.urls import include
 from django.conf import settings
 from . import views
 
 app_name: str = "user"
 
 urlpatterns = [
-    url(r"^register$", views.RegistrationView.as_view(), name="register"),
-    url(r"^login$", views.LoginView.as_view(), name="login"),
-    url(r"^logout$", views.LogoutView.as_view(), name="logout"),
-    url(r"^profile$", views.ProfileView.as_view(), name="profile"),
+    path(r"register", views.RegistrationView.as_view(), name="register"),
+    path(r"login", views.LoginView.as_view(), name="login"),
+    path(r"logout", views.LogoutView.as_view(), name="logout"),
+    path(r"profile", views.ProfileView.as_view(), name="profile"),
+    path(
+        "change_password",
+        views.UserPasswordChangeView.as_view(),
+        name="change_password",
+    ),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
 
-    urlpatterns = [url(r"^__debug__/", include(debug_toolbar.urls)),] + urlpatterns
+    urlpatterns = [path(r"__debug__/", include(debug_toolbar.urls)),] + urlpatterns

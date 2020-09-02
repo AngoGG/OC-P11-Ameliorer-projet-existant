@@ -21,10 +21,38 @@
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-lg-8 text text-center">
+                {% if change == "success" %}
+                    <div class="alert alert-success alert-white rounded">
+                        <button type="button" data-dismiss="alert" aria-hidden="true" class="close">×</button>
+                        <div class="icon">
+                            <i class="fa fa-check"></i> <strong>Succès!</strong> 
+                        Vous avez modifié votre compte avec succès ! 
+                        </div>
+                    </div>
+                {% endif %} 
                 <h2 class="text-white text-center">
                     <p>
                         {% if user.is_authenticated %}
-                        {{ user.email }}
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td><p class="text-white mb-4 text-left">Prénom:</p><p class="text-white-50 mb-4 text-left">{{ user.first_name }}</p></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-white mb-4 text-left"><p>Nom:</p><p class="text-white-50 mb-4 text-left">{{ user.last_name }}</p></td>
+                                        <td ></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-white mb-4 text-left"><p>Email:</p><p class="text-white-50 mb-4 text-left">{{ user.email }}</p></td>
+                                        <td ></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-white mb-4 text-left"><p >Mot de Passe:</p><p class="text-white-50 mb-4 text-left"> *****</p></td>
+                                        <td class="align-middle"><a href="{% url "user:change_password"%}" class="btn bg-chocolate btn-block text-white" role="button">Modifier</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         {% endif %}
                     </p>
                 </h2>

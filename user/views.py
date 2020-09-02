@@ -1,9 +1,11 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
+from django.contrib.auth import logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import View, FormView
+from django.views.generic import FormView, View
 from .forms import ConnectionForm, RegisterForm
 from .models import User
 
@@ -56,6 +58,25 @@ class LogoutView(View):
         return redirect("/")
 
 
-class ProfileView(View):
+class UserPasswordChangeView(LoginRequiredMixin, FormView):
     def get(self, request: HttpRequest) -> HttpResponse:
-        return render(request, "user/profile.html")
+        return render(
+            request,
+            "user/change_password.html",
+            {"form": PasswordChangeForm(user=request.user)},
+        )
+
+    def post(self, request: HttpRequest) -> HttpResponse:
+        form: PasswordChangeForm = PasswordChangeForm(
+            data=request.POST, user=request.user
+        )
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return render(request, "user/profile.html", {"change": "success",})
+        return render(request, "user/change_password.html", locals())
+
+
+class ProfileView(View):
+    def get(self, request: HttpRequest, **kwargs) -> HttpResponse:
+        return render(request, "user/profile.html", **kwargs)
