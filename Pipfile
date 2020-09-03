@@ -20,6 +20,7 @@ gunicorn = "*"
 django-debug-toolbar = "*"
 pylint = "*"
 pyyaml = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.8"
