@@ -31,6 +31,7 @@ urlpatterns: List = [
         ProductAutocompleteView.as_view(),
         name="product_autocomplete",
     ),
+    path("password_reset", views.PasswordResetView.as_view(), name="password_reset"),
 ]
 
 if settings.DEBUG:
