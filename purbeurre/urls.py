@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls import include, url
+from django.contrib.auth import views as auth_views  # import this
 
 urlpatterns = [
     path(r"admin/", admin.site.urls),
@@ -24,6 +25,20 @@ urlpatterns = [
     path(r"products/", include("product.urls")),
     path(r"user/", include("user.urls")),
     path(r"favorites/", include("substitute.urls")),
+    path(
+        "reset/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="app/password_reset_confirm.html"
+        ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset/complete/",
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="app/password_reset_complete.html"
+        ),
+        name="password_reset_complete",
+    ),
 ]
 
 if settings.DEBUG:
