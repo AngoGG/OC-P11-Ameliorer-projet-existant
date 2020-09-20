@@ -4,9 +4,10 @@ Ce répertoire contiendra les développemments du projet 11. L'objectif de ce pr
 
 ## Fonctionnalités à ajouter
 
-2 fonctionnalités vont être ajoutées suite à une demande client:
+3 fonctionnalités vont être ajoutées suite à une demande client:
 
 - Possibilité de changer le mot de passe utilisateur
+- Possibilité de réinitialiser le mot de passe d'un utilisateur
 - Possibilité de choisir les catégories à importer depuis l'API Open Food Facts
 
 ## Evolution de fonctionnalité
