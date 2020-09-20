@@ -13,3 +13,7 @@ Ce répertoire contiendra les développemments du projet 11. L'objectif de ce pr
 ## Evolution de fonctionnalité
 
 La commande de récupération et d'insertion des produits en base de données va également être revue afin de ne plus être vidée entièrement à chaque nouvel import et de pouvoir permettre une mise à jour régulière de la base de données en production.
+
+## Correction de bug
+
+Un bug empêchant l'insertion de données en base a été remonté par le client. Le bug doit être corrigé et le test refactorisé afin de résoudre ce dernier.
